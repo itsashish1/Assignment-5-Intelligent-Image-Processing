@@ -54,7 +54,7 @@ def main():
     try:
         # TASK 1: Project Setup (Already done via task1.py)
         print("\n" + "="*70)
-        print("TASK 1: PROJECT SETUP & SYSTEM OVERVIEW ✓")
+        print("TASK 1: PROJECT SETUP & SYSTEM OVERVIEW *")
         print("="*70)
         
         # TASK 2: Image Acquisition & Preprocessing
@@ -100,7 +100,7 @@ def main():
         )
         
         print("\n" + "="*70)
-        print("✓ ALL TASKS COMPLETED SUCCESSFULLY!")
+        print("* ALL TASKS COMPLETED SUCCESSFULLY!")
         print("="*70)
         print(f"\nOutput files saved in: {output_dir}/")
         print("\nGenerated files:")

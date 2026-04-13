@@ -33,7 +33,7 @@ def apply_global_thresholding(image, threshold=127):
         ndarray: Binary segmented image
     """
     _, binary = cv2.threshold(image, threshold, 255, cv2.THRESH_BINARY)
-    print(f"✓ Global thresholding applied (threshold={threshold})")
+    print(f"* Global thresholding applied (threshold={threshold})")
     return binary
 
 def apply_otsu_thresholding(image):
@@ -47,7 +47,7 @@ def apply_otsu_thresholding(image):
         tuple: (binary_image, threshold_value)
     """
     _, binary = cv2.threshold(image, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-    print(f"✓ Otsu's thresholding applied (auto-determined threshold)")
+    print(f"* Otsu's thresholding applied (auto-determined threshold)")
     return binary
 
 def apply_adaptive_thresholding(image, block_size=11, c=2):
@@ -64,7 +64,7 @@ def apply_adaptive_thresholding(image, block_size=11, c=2):
     """
     binary = cv2.adaptiveThreshold(image, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
                                    cv2.THRESH_BINARY, block_size, c)
-    print(f"✓ Adaptive thresholding applied (block_size={block_size}, c={c})")
+    print(f"* Adaptive thresholding applied (block_size={block_size}, c={c})")
     return binary
 
 def apply_dilation(image, kernel_size=5, iterations=1):
@@ -81,7 +81,7 @@ def apply_dilation(image, kernel_size=5, iterations=1):
     """
     kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (kernel_size, kernel_size))
     dilated = cv2.dilate(image, kernel, iterations=iterations)
-    print(f"✓ Dilation applied (kernel={kernel_size}x{kernel_size}, iterations={iterations})")
+    print(f"* Dilation applied (kernel={kernel_size}x{kernel_size}, iterations={iterations})")
     return dilated
 
 def apply_erosion(image, kernel_size=5, iterations=1):
@@ -98,7 +98,7 @@ def apply_erosion(image, kernel_size=5, iterations=1):
     """
     kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (kernel_size, kernel_size))
     eroded = cv2.erode(image, kernel, iterations=iterations)
-    print(f"✓ Erosion applied (kernel={kernel_size}x{kernel_size}, iterations={iterations})")
+    print(f"* Erosion applied (kernel={kernel_size}x{kernel_size}, iterations={iterations})")
     return eroded
 
 def apply_opening(image, kernel_size=5):
@@ -115,7 +115,7 @@ def apply_opening(image, kernel_size=5):
     """
     kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (kernel_size, kernel_size))
     opened = cv2.morphologyEx(image, cv2.MORPH_OPEN, kernel)
-    print(f"✓ Opening applied (kernel={kernel_size}x{kernel_size})")
+    print(f"* Opening applied (kernel={kernel_size}x{kernel_size})")
     return opened
 
 def apply_closing(image, kernel_size=5):
@@ -132,7 +132,7 @@ def apply_closing(image, kernel_size=5):
     """
     kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (kernel_size, kernel_size))
     closed = cv2.morphologyEx(image, cv2.MORPH_CLOSE, kernel)
-    print(f"✓ Closing applied (kernel={kernel_size}x{kernel_size})")
+    print(f"* Closing applied (kernel={kernel_size}x{kernel_size})")
     return closed
 
 def apply_gradient(image, kernel_size=5):
@@ -149,7 +149,7 @@ def apply_gradient(image, kernel_size=5):
     """
     kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (kernel_size, kernel_size))
     gradient = cv2.morphologyEx(image, cv2.MORPH_GRADIENT, kernel)
-    print(f"✓ Morphological gradient applied (kernel={kernel_size}x{kernel_size})")
+    print(f"* Morphological gradient applied (kernel={kernel_size}x{kernel_size})")
     return gradient
 
 def segment_and_morph(enhanced_image, output_dir="outputs"):
@@ -231,4 +231,4 @@ def display_segmentation(otsu, dilated, eroded, opened, closed, gradient, output
     # Save figure
     output_path = utils.ensure_dir(output_dir)
     plt.savefig(f"{output_path}/task4_segmentation.png", dpi=150, bbox_inches='tight')
-    print(f"\n✓ Segmentation visualization saved: task4_segmentation.png")
+    print(f"\n* Segmentation visualization saved: task4_segmentation.png")

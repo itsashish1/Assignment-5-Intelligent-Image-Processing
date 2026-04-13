@@ -41,7 +41,7 @@ def apply_sobel_operator(image):
     magnitude = np.sqrt(sobelx**2 + sobely**2)
     magnitude = np.uint8(np.clip(magnitude, 0, 255))
     
-    print(f"✓ Sobel operator applied")
+    print(f"* Sobel operator applied")
     return magnitude
 
 def apply_canny_detector(image, threshold1=50, threshold2=150):
@@ -57,7 +57,7 @@ def apply_canny_detector(image, threshold1=50, threshold2=150):
         ndarray: Canny edge map
     """
     edges = cv2.Canny(image, threshold1, threshold2)
-    print(f"✓ Canny edge detector applied (thresholds: {threshold1}, {threshold2})")
+    print(f"* Canny edge detector applied (thresholds: {threshold1}, {threshold2})")
     return edges
 
 def extract_contours(binary_image):
@@ -71,7 +71,7 @@ def extract_contours(binary_image):
         list: List of contours
     """
     contours, _ = cv2.findContours(binary_image, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-    print(f"✓ Found {len(contours)} contours")
+    print(f"* Found {len(contours)} contours")
     return contours
 
 def draw_bounding_boxes(image, contours, min_area=500):
@@ -101,7 +101,7 @@ def draw_bounding_boxes(image, contours, min_area=500):
             cv2.rectangle(result, (x, y), (x + w, y + h), (0, 255, 0), 2)
             box_count += 1
     
-    print(f"✓ Drew {box_count} bounding boxes")
+    print(f"* Drew {box_count} bounding boxes")
     return result
 
 def extract_orb_features(image):
@@ -120,7 +120,7 @@ def extract_orb_features(image):
     # Detect keypoints and compute descriptors
     keypoints, descriptors = orb.detectAndCompute(image, None)
     
-    print(f"✓ ORB features extracted: {len(keypoints)} keypoints")
+    print(f"* ORB features extracted: {len(keypoints)} keypoints")
     return keypoints, descriptors
 
 def draw_keypoints(image, keypoints):
@@ -136,7 +136,7 @@ def draw_keypoints(image, keypoints):
     """
     result = cv2.drawKeypoints(image, keypoints, None, 
                               flags=cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
-    print(f"✓ Drew {len(keypoints)} keypoints")
+    print(f"* Drew {len(keypoints)} keypoints")
     return result
 
 def extract_features(original_image, enhanced_image, output_dir="outputs"):
@@ -238,4 +238,4 @@ def display_features(sobel, canny, boxes, featured, output_dir="outputs"):
     # Save figure
     output_path = utils.ensure_dir(output_dir)
     plt.savefig(f"{output_path}/task5_features.png", dpi=150, bbox_inches='tight')
-    print(f"\n✓ Feature extraction visualization saved: task5_features.png")
+    print(f"\n* Feature extraction visualization saved: task5_features.png")

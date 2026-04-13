@@ -1,86 +1,296 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>AI Image Processing Dashboard</title>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IntelliVision | Intelligent Image Processing</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #0f172a;
-            color: white;
+        :root {
+            --primary: #6366f1;
+            --primary-glow: rgba(99, 102, 241, 0.4);
+            --secondary: #a855f7;
+            --accent: #fbbf24;
+            --bg: #030712;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            background-image:
+                radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(168, 85, 247, 0.15) 0px, transparent 50%);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
         }
 
         .container {
-            max-width: 900px;
-            margin: auto;
-            padding: 40px;
+            width: 100%;
+            max-width: 600px;
+            padding: 2rem;
+            z-index: 10;
+        }
+
+        .hero {
             text-align: center;
+            margin-bottom: 3rem;
         }
 
-        h1 {
-            margin-bottom: 20px;
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(to right, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
         }
 
-        .card {
-            background: #1e293b;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
         }
 
-        input, select, button {
-            padding: 12px;
-            margin: 10px;
-            border-radius: 8px;
-            border: none;
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 2.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        button {
-            background: #3b82f6;
-            color: white;
+        .glass-card:hover {
+            box-shadow: 0 0 30px var(--primary-glow);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .drop-zone {
+            border: 2px dashed rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .drop-zone:hover {
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        .drop-zone i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .drop-zone input {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
             cursor: pointer;
         }
 
+        .file-info {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: var(--primary);
+            font-weight: 500;
+            display: none;
+        }
+
+        select {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 1rem;
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1em;
+        }
+
+        button {
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 1rem;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        }
+
         button:hover {
-            background: #2563eb;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
         }
 
         #loader {
             display: none;
-            margin-top: 20px;
+            position: fixed;
+            inset: 0;
+            background: rgba(3, 7, 18, 0.9);
+            z-index: 100;
+            backdrop-filter: blur(8px);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(99, 102, 241, 0.1);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1.5rem;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loading-text {
+            font-size: 1.5rem;
+            font-weight: 600;
+            background: linear-gradient(to right, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Ambient Orbs */
+        .orb {
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            filter: blur(100px);
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .orb-1 {
+            top: -100px;
+            left: -100px;
+            background: var(--primary);
+        }
+
+        .orb-2 {
+            bottom: -100px;
+            right: -100px;
+            background: var(--secondary);
         }
     </style>
-
-    <script>
-        function showLoader() {
-            document.getElementById("loader").style.display = "block";
-        }
-    </script>
 </head>
 
 <body>
-<div class="container">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
 
-    <h1>🚀 AI Image Processing Dashboard</h1>
-
-    <div class="card">
-        <form action="/upload" method="post" enctype="multipart/form-data" onsubmit="showLoader()">
-            
-            <input type="file" name="image" required><br>
-
-            <select name="filter">
-                <option value="full">Full Pipeline</option>
-                <option value="edge">Edge Detection</option>
-                <option value="blur">Blur</option>
-            </select><br>
-
-            <button type="submit">Process Image</button>
-        </form>
-
-        <div id="loader">⏳ Processing Image...</div>
+    <div id="loader">
+        <div class="spinner"></div>
+        <div class="loading-text">Processing Excellence...</div>
     </div>
 
-</div>
+    <div class="container">
+        <header class="hero">
+            <h1>IntelliVision</h1>
+            <p>Advanced AI-powered image processing at your fingertips.</p>
+        </header>
+
+        <div class="glass-card">
+            <form action="/upload" method="post" enctype="multipart/form-data" onsubmit="showLoader()">
+                <div class="form-group">
+                    <div class="drop-zone" id="dropZone">
+                        <i data-lucide="cloud-upload"></i>
+                        <p>Click or drag image to upload</p>
+                        <span class="file-info" id="fileInfo"></span>
+                        <input type="file" name="image" id="fileInput" required accept="image/*"
+                            onchange="updateFileInfo()">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label
+                        style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-muted);">Choose
+                        Processing Filter</label>
+                    <select name="filter">
+                        <option value="full">Comprehensive Full Pipeline</option>
+                        <option value="edge">Precision Edge Detection</option>
+                        <option value="blur">Gaussian Artistic Blur</option>
+                    </select>
+                </div>
+
+                <button type="submit">
+                    <i data-lucide="cpu"></i>
+                    Initialize Processing
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        function showLoader() {
+            document.getElementById("loader").style.display = "flex";
+        }
+
+        function updateFileInfo() {
+            const input = document.getElementById('fileInput');
+            const info = document.getElementById('fileInfo');
+            const zoneText = document.querySelector('.drop-zone p');
+
+            if (input.files && input.files[0]) {
+                info.textContent = `Selected: ${input.files[0].name}`;
+                info.style.display = 'block';
+                zoneText.style.display = 'none';
+            }
+        }
+    </script>
 </body>
+
 </html>

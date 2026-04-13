@@ -38,7 +38,7 @@ def add_gaussian_noise(image, mean=0, sigma=25):
     """
     noise = np.random.normal(mean, sigma, image.shape)
     noisy_image = np.clip(image.astype(float) + noise, 0, 255).astype(np.uint8)
-    print(f"✓ Gaussian noise added (σ={sigma})")
+    print(f"* Gaussian noise added (sigma={sigma})")
     return noisy_image
 
 def add_salt_pepper_noise(image, probability=0.05):
@@ -65,7 +65,7 @@ def add_salt_pepper_noise(image, probability=0.05):
     pepper_coords = [np.random.randint(0, i, num_pepper) for i in image.shape]
     noisy_image[tuple(pepper_coords)] = 0
     
-    print(f"✓ Salt-and-pepper noise added (p={probability})")
+    print(f"* Salt-and-pepper noise added (p={probability})")
     return noisy_image
 
 def apply_mean_filter(image, kernel_size=5):
@@ -80,7 +80,7 @@ def apply_mean_filter(image, kernel_size=5):
         ndarray: Filtered image
     """
     filtered = cv2.blur(image, (kernel_size, kernel_size))
-    print(f"✓ Mean filter applied (kernel={kernel_size}x{kernel_size})")
+    print(f"* Mean filter applied (kernel={kernel_size}x{kernel_size})")
     return filtered
 
 def apply_median_filter(image, kernel_size=5):
@@ -95,7 +95,7 @@ def apply_median_filter(image, kernel_size=5):
         ndarray: Filtered image
     """
     filtered = cv2.medianBlur(image, kernel_size)
-    print(f"✓ Median filter applied (kernel={kernel_size}x{kernel_size})")
+    print(f"* Median filter applied (kernel={kernel_size}x{kernel_size})")
     return filtered
 
 def apply_gaussian_filter(image, sigma=1.0):
@@ -114,7 +114,7 @@ def apply_gaussian_filter(image, sigma=1.0):
         kernel_size += 1
     
     filtered = cv2.GaussianBlur(image, (kernel_size, kernel_size), sigma)
-    print(f"✓ Gaussian filter applied (σ={sigma})")
+    print(f"* Gaussian filter applied (sigma={sigma})")
     return filtered
 
 def apply_histogram_equalization(image):
@@ -128,7 +128,7 @@ def apply_histogram_equalization(image):
         ndarray: Enhanced image
     """
     enhanced = cv2.equalizeHist(image)
-    print(f"✓ Histogram Equalization applied")
+    print(f"* Histogram Equalization applied")
     return enhanced
 
 def apply_clahe(image, clip_limit=2.0, tile_size=8):
@@ -145,7 +145,7 @@ def apply_clahe(image, clip_limit=2.0, tile_size=8):
     """
     clahe = cv2.createCLAHE(clipLimit=clip_limit, tileGridSize=(tile_size, tile_size))
     enhanced = clahe.apply(image)
-    print(f"✓ CLAHE applied (clip_limit={clip_limit}, tile_size={tile_size})")
+    print(f"* CLAHE applied (clip_limit={clip_limit}, tile_size={tile_size})")
     return enhanced
 
 def enhance_and_restore(grayscale_image, output_dir="outputs"):
@@ -227,7 +227,7 @@ def display_restoration(original, noisy, mean_f, median_f, gaussian_f, enhanced,
     # Save figure
     output_path = utils.ensure_dir(output_dir)
     plt.savefig(f"{output_path}/task3_enhancement.png", dpi=150, bbox_inches='tight')
-    print(f"\n✓ Enhancement visualization saved: task3_enhancement.png")
+    print(f"\n* Enhancement visualization saved: task3_enhancement.png")
 
 if __name__ == "__main__":
     import task2_preprocessing as task2

@@ -152,9 +152,9 @@ def evaluate_performance(original, grayscale, noisy, restored, enhanced):
     print(f"PSNR (dB):             {psnr_noisy:.4f}")
     print(f"SSIM:                  {ssim_noisy:.4f}")
     print(f"\nInterpretation:")
-    print(f"  • High MSE indicates significant degradation due to noise")
-    print(f"  • Lower PSNR means more noise relative to signal")
-    print(f"  • Lower SSIM shows structural dissimilarity")
+    print(f"  * High MSE indicates significant degradation due to noise")
+    print(f"  * Lower PSNR means more noise relative to signal")
+    print(f"  * Lower SSIM shows structural dissimilarity")
     
     # ===== Comparison 2: Original vs Restored (Median) =====
     print("\n" + "=" * 70)
@@ -178,9 +178,9 @@ def evaluate_performance(original, grayscale, noisy, restored, enhanced):
     print(f"PSNR (dB):             {psnr_restored:.4f}")
     print(f"SSIM:                  {ssim_restored:.4f}")
     print(f"\nImprovement over Noisy:")
-    print(f"  • MSE reduction:       {((mse_noisy - mse_restored) / mse_noisy * 100):.2f}%")
-    print(f"  • PSNR improvement:    {(psnr_restored - psnr_noisy):.4f} dB")
-    print(f"  • SSIM improvement:    {(ssim_restored - ssim_noisy):.4f}")
+    print(f"  * MSE reduction:       {((mse_noisy - mse_restored) / mse_noisy * 100):.2f}%")
+    print(f"  * PSNR improvement:    {(psnr_restored - psnr_noisy):.4f} dB")
+    print(f"  * SSIM improvement:    {(ssim_restored - ssim_noisy):.4f}")
     
     # ===== Comparison 3: Original vs Enhanced =====
     print("\n" + "=" * 70)
@@ -203,8 +203,8 @@ def evaluate_performance(original, grayscale, noisy, restored, enhanced):
     print(f"PSNR (dB):             {psnr_enhanced:.4f}")
     print(f"SSIM:                  {ssim_enhanced:.4f}")
     print(f"\nInterpretation:")
-    print(f"  • Enhancement may have different pixel values but preserves structure")
-    print(f"  • Focus on SSIM for perceptual quality rather than pixel-level MSE")
+    print(f"  * Enhancement may have different pixel values but preserves structure")
+    print(f"  * Focus on SSIM for perceptual quality rather than pixel-level MSE")
     
     # ===== Comparison 4: Noisy vs Restored =====
     print("\n" + "=" * 70)
@@ -227,8 +227,8 @@ def evaluate_performance(original, grayscale, noisy, restored, enhanced):
     print(f"PSNR (dB):             {psnr_removal:.4f}")
     print(f"SSIM:                  {ssim_removal:.4f}")
     print(f"\nInterpretation:")
-    print(f"  • Lower values indicate effective noise removal")
-    print(f"  • High PSNR and SSIM suggest good restoration quality")
+    print(f"  * Lower values indicate effective noise removal")
+    print(f"  * High PSNR and SSIM suggest good restoration quality")
     
     # ===== Summary =====
     print("\n" + "=" * 70)
@@ -236,9 +236,9 @@ def evaluate_performance(original, grayscale, noisy, restored, enhanced):
     print("=" * 70)
     
     print("\nMetric Ranges:")
-    print("  • MSE: Lower is better (minimum = 0 for identical images)")
-    print("  • PSNR (dB): Higher is better (typical range 10-50+ dB)")
-    print("  • SSIM: Higher is better (range -1 to 1, where 1 is identical)")
+    print("  * MSE: Lower is better (minimum = 0 for identical images)")
+    print("  * PSNR (dB): Higher is better (typical range 10-50+ dB)")
+    print("  * SSIM: Higher is better (range -1 to 1, where 1 is identical)")
     
     print("\nKey Findings:")
     print(f"  1. Restoration Quality: PSNR improvement of {(psnr_restored - psnr_noisy):.2f} dB")

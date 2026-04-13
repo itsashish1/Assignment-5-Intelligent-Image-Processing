@@ -5,7 +5,7 @@ TASK 2: IMAGE ACQUISITION & PREPROCESSING
 
 Purpose:
     - Load images from disk or capture from webcam
-    - Resize image to standard resolution (512×512)
+    - Resize image to standard resolution (512x512)
     - Convert color images to grayscale
     - Display original and preprocessed images for comparison
 
@@ -37,7 +37,7 @@ def load_image(image_path):
     if image is None:
         raise FileNotFoundError(f"Image not found at: {image_path}")
     
-    print(f"✓ Image loaded: {image_path}")
+    print(f"* Image loaded: {image_path}")
     print(f"  Original dimensions: {image.shape}")
     
     return image
@@ -55,7 +55,7 @@ def resize_image(image, target_size=(512, 512)):
     """
     resized = cv2.resize(image, (target_size[1], target_size[0]), 
                          interpolation=cv2.INTER_AREA)
-    print(f"✓ Image resized to: {resized.shape}")
+    print(f"* Image resized to: {resized.shape}")
     
     return resized
 
@@ -70,7 +70,7 @@ def convert_to_grayscale(image):
         ndarray: Grayscale image
     """
     grayscale = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    print(f"✓ Image converted to grayscale: {grayscale.shape}")
+    print(f"* Image converted to grayscale: {grayscale.shape}")
     
     return grayscale
 
@@ -144,7 +144,7 @@ def display_preprocessing(original_image, grayscale_image, output_dir="outputs")
     # Save figure
     output_path = utils.ensure_dir(output_dir)
     plt.savefig(f"{output_path}/task2_preprocessing.png", dpi=150, bbox_inches='tight')
-    print(f"\n✓ Preprocessing visualization saved: task2_preprocessing.png")
+    print(f"\n* Preprocessing visualization saved: task2_preprocessing.png")
     
     return fig
 

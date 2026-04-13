@@ -44,7 +44,7 @@ def save_image(image, filename, output_dir="outputs"):
     else:  # Color
         cv2.imwrite(full_path, image)
     
-    print(f"✓ Image saved: {filename}")
+    print(f"* Image saved: {filename}")
     return full_path
 
 def load_image(image_path):
