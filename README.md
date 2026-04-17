@@ -10,7 +10,7 @@ A comprehensive **end-to-end image processing pipeline** demonstrating advanced 
 
 **Student Details:**.......
 - **Name:** Ashish Yadav
-- **Roll No:** 2301010413
+- **Roll No:** 2301010413.....
 - **Course:** BTech CS (Computer Science & Engineering)
 - **Assignment:** Assignment-5 - Intelligent Image Processing System
 - **Date:** April 9, 2026
