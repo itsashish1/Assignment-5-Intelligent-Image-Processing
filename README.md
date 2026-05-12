@@ -393,7 +393,7 @@ A: Currently CPU-based. GPU acceleration can be added using CUDA/CuPy.
 
 For issues, questions, or suggestions:
 - Create an issue on GitHub
-- Email: ashish.yadav@college.edu
+- Email: gtc.ashish1@gmail.com
 - Subject: Assignment-5 Support
 
 ---
