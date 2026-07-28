@@ -2,10 +2,11 @@
 
 [![Python Version](https://img.shields.io/badge/Python-3.7%2B-blue.svg)](https://www.python.org/)
 [![OpenCV](https://img.shields.io/badge/OpenCV-4.5.0%2B-green.svg)](https://opencv.org/)
+[![Flask](https://img.shields.io/badge/Frontend-Flask%20%7C%20HTML5-orange.svg)](https://flask.palletsprojects.com/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![University](https://img.shields.io/badge/Institution-KR%20Mangalam%20University-red.svg)](https://www.krmangalam.edu.in/)
 
-A comprehensive, modular, end-to-end computer vision and intelligent image processing framework implemented in Python. This system encompasses the complete digital image processing pipeline: raw image acquisition, standardized preprocessing, synthetic noise modeling, image restoration, adaptive contrast enhancement, morphological segmentation, object feature extraction, quantitative evaluation metrics (MSE, PSNR, SSIM), and consolidated pipeline visualization.
+A comprehensive, modular, end-to-end computer vision and intelligent image processing framework implemented in Python with an interactive web-based user interface. This system encompasses the complete digital image processing pipeline: raw image acquisition, standardized preprocessing, synthetic noise modeling, image restoration, adaptive contrast enhancement, morphological segmentation, object feature extraction, quantitative evaluation metrics (MSE, PSNR, SSIM), and web dashboard visualization.
 
 ---
 
@@ -13,6 +14,7 @@ A comprehensive, modular, end-to-end computer vision and intelligent image proce
 - [Problem Statement](#problem-statement)
 - [Real-World Use Cases](#real-world-use-cases)
 - [Tech Stack and Version Requirements](#tech-stack-and-version-requirements)
+- [Web Application and Frontend Interface](#web-application-and-frontend-interface)
 - [System Architecture and Workflow](#system-architecture-and-workflow)
 - [Detailed Task Breakdown](#detailed-task-breakdown)
 - [Quantitative Performance Evaluation](#quantitative-performance-evaluation)
@@ -54,14 +56,19 @@ This project delivers an automated, 7-stage processing pipeline to address these
 
 ## Tech Stack and Version Requirements
 
-### Programming Language
+### Backend & Core Algorithms
 - **Python:** Version `3.7+` (Tested and recommended: `Python 3.8` through `3.11`)
+
+### Frontend & Web Application
+- **Web Framework:** Flask (`v2.0+`)
+- **UI Architecture:** HTML5, CSS3, JavaScript, Jinja2 Template Engine (`templates/`)
 
 ### Core Libraries and Dependencies
 
 | Library / Package | Minimum Required Version | Functional Purpose |
 | :--- | :--- | :--- |
 | **`opencv-python`** | `>= 4.5.0` | Digital image matrix transformations, color space conversions, spatial filtering, morphological operations, ORB feature extraction |
+| **`flask`** | `>= 2.0.0` | Light-weight Web server and routes for web dashboard rendering (`app.py`) |
 | **`numpy`** | `>= 1.21.0` | Multi-dimensional array operations, matrix mathematics, synthetic noise generation routines |
 | **`matplotlib`** | `>= 3.4.0` | Rendering multi-panel pipeline comparison plots, intensity histograms, and saved visual outputs |
 | **`scipy`** | `>= 1.7.0` | Advanced scientific computing functions and spatial signal filtering kernels |
@@ -71,9 +78,33 @@ This project delivers an automated, 7-stage processing pipeline to address these
 
 ---
 
+## Web Application and Frontend Interface
+
+The system features an interactive, browser-based web dashboard (`app.py`) built with Flask and responsive HTML5/CSS3 templates (`templates/`). This interface enables users to interact with the underlying computer vision algorithms without command-line invocation.
+
+### Key Frontend Features
+1. **Interactive Image Upload:** Drag-and-drop or upload custom image files (JPEG, PNG, WebP, BMP, TIFF).
+2. **Real-Time Visual Stage Comparisons:** Side-by-side display comparing Original, Degraded, Denoised, Enhanced, Segmented, and Feature-Extracted visual outputs.
+3. **Dynamic Parameter Control:** Tune filter kernel sizes, thresholding values, noise variance ($\sigma$), and CLAHE parameters through the UI.
+4. **Live Metric Reporting:** Real-time computation and display of MSE, PSNR, and SSIM values directly on the web page.
+
+### Launching the Web Interface
+```bash
+python app.py
+```
+Navigate to `http://localhost:5000` or `http://127.0.0.1:5000` in your web browser.
+
+---
+
 ## System Architecture and Workflow
 
 ```text
+┌────────────────────────────────────────────────────────────────────────┐
+│               Interactive Web UI (Flask / HTML5 Templates)             │
+│                      http://localhost:5000 (app.py)                    │
+└──────────────────────────────────┬─────────────────────────────────────┘
+                                   │ Uploads / Triggers Pipeline
+                                   ▼
 ┌─────────────────┐     ┌───────────────────┐     ┌────────────────────┐
 │   Raw Image     │ ──> │  Task 2: Load &   │ ──> │ Task 3: Noise &    │
 │  Acquisition    │     │  Preprocess       │     │ Restoration/CLAHE  │
@@ -162,8 +193,8 @@ Performance benchmarks recorded during empirical test execution:
 
 ```text
 Assignment-5-Intelligent-Image-Processing/
-├── main.py                    # Master execution entry point
-├── app.py                     # Optional web interface runner
+├── main.py                    # CLI execution entry point (Runs command line pipeline)
+├── app.py                     # Web application server (Flask web interface)
 ├── task1_setup.py             # System verification module
 ├── task2_preprocessing.py     # Image acquisition and normalization
 ├── task3_enhancement.py       # Denoising filters and CLAHE implementation
@@ -175,6 +206,8 @@ Assignment-5-Intelligent-Image-Processing/
 ├── requirements.txt           # Dependency manifest
 ├── LICENSE                    # MIT License specification
 ├── README.md                  # System documentation
+├── templates/                 # Frontend HTML5/CSS3 templates for web UI
+│   └── index.html             # Web dashboard user interface
 └── outputs/                   # Generated output artifacts
     ├── task2_preprocessing.png
     ├── task3_enhancement.png
@@ -220,14 +253,21 @@ pip install -r requirements.txt
 
 ## Usage Instructions
 
-### Complete Pipeline Execution
-To run all 7 tasks sequentially and save visual output artifacts:
+### Option 1: Running the Interactive Web Application (Frontend UI)
+To launch the browser-based Web Interface:
+```bash
+python app.py
+```
+Open your web browser and navigate to `http://localhost:5000`. You can upload custom images and view real-time processing results interactively.
+
+### Option 2: Running the Command-Line Pipeline
+To run all 7 tasks sequentially in batch mode and save visual outputs to disk:
 ```bash
 python main.py
 ```
 Output visualizations will be stored directly inside the `outputs/` directory.
 
-### Modular Programmatic Usage
+### Option 3: Modular Programmatic Usage
 Individual modules can be imported directly into custom Python scripts:
 ```python
 import task2_preprocessing as task2
@@ -247,7 +287,7 @@ noisy_img, restored_img, enhanced_img = task3.enhance_and_restore(grayscale_img)
 - **Hardware Acceleration:** Integration of CUDA and `CuPy` bindings for real-time video stream processing ($>60 \text{ FPS}$).
 - **Deep Learning Architectures:** Incorporation of Convolutional Neural Networks (DnCNN) for deep denoising and UNet models for semantic segmentation.
 - **Microservice Infrastructure:** Containerization via Docker and deployment as a RESTful API service using FastAPI.
-- **Web Interface:** Expansion of `app.py` utilizing Streamlit or Gradio to enable interactive threshold tuning and filter parameter adjustment.
+- **Frontend Dashboard Enhancements:** Expanding the web UI with React.js / Vue.js for enhanced canvas image manipulation and real-time histogram plotting.
 
 ---
 
