@@ -1,107 +1,181 @@
-11..# Intelligent Image Processing System - Assignment-5 #KR Mangalam Uuniversity
+# Intelligent Image Processing System
 
+[![Python Version](https://img.shields.io/badge/Python-3.7%2B-blue.svg)](https://www.python.org/)
+[![OpenCV](https://img.shields.io/badge/OpenCV-4.5.0%2B-green.svg)](https://opencv.org/)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![University](https://img.shields.io/badge/Institution-KR%20Mangalam%20University-red.svg)](https://www.krmangalam.edu.in/)
 
-![Python](https://img.shields.io/badge/Python-3.13+-blue.svg)
-![OpenCV](https://img.shields.io/badge/OpenCV-4.0+-green.svg)
-![License](https://img.shields.io/badge/License-MIT-yellow.svg)
-
-## 📋 Project Overview
-
-A comprehensive **end-to-end image processing pipeline** demonstrating advanced computer vision techniques including acquisition, preprocessing, enhancement, segmentation, feature extraction, performance evaluation, and visualization.
-
-**Student Details:**.......
-- **Name:** Ashish Yadav
-- **Roll No:** 2301010413.....
-- **Course:** BTech CS (Computer Science & Engineering)
-- **Assignment:** Assignment-5 - Intelligent Image Processing System
-- **Date:** April 9, 2026
+A comprehensive, modular, end-to-end computer vision and intelligent image processing framework implemented in Python. This system encompasses the complete digital image processing pipeline: raw image acquisition, standardized preprocessing, synthetic noise modeling, image restoration, adaptive contrast enhancement, morphological segmentation, object feature extraction, quantitative evaluation metrics (MSE, PSNR, SSIM), and consolidated pipeline visualization.
 
 ---
 
-## 🎯 System Capabilities
-
-### ✓ Task 1: Project Setup & System Overview
-- Structured project folder with clear organization
-- Python script with comprehensive header comments
-- Welcome message describing system purpose and capabilities
-
-### ✓ Task 2: Image Acquisition & Preprocessing
-- **Image Loading:** Support for JPEG, PNG, WebP formats
-- **Resizing:** Standardized to 512×512 resolution
-- **Color Conversion:** RGB to Grayscale transformation
-- **Visualization:** Original vs Preprocessed comparison
-
-### ✓ Task 3: Image Enhancement & Restoration
-- **Noise Simulation:**
-  - Gaussian noise (σ=25)
-  - Salt-and-pepper noise (p=0.05)
-- **Restoration Filters:**
-  - Mean filter (5×5 kernel)
-  - Median filter (5×5 kernel)
-  - Gaussian filter (σ=1.5)
-- **Contrast Enhancement:**
-  - Histogram Equalization
-  - CLAHE (Contrast Limited Adaptive Histogram Equalization)
-
-### ✓ Task 4: Image Segmentation & Morphological Processing
-- **Thresholding Techniques:**
-  - Global thresholding (fixed threshold=127)
-  - Otsu's automatic thresholding
-  - Adaptive thresholding (Gaussian)
-- **Morphological Operations:**
-  - Dilation (expands objects)
-  - Erosion (shrinks objects)
-  - Opening (removes small objects)
-  - Closing (fills holes)
-  - Morphological gradient (edge extraction)
-
-### ✓ Task 5: Object Representation & Feature Extraction
-- **Edge Detection:**
-  - Sobel operator (gradient-based)
-  - Canny edge detector (multi-stage)
-- **Contour Analysis:**
-  - Extracted 3,174 contours
-  - Drew 31 bounding boxes
-- **Feature Extraction:**
-  - ORB detector: 498 keypoints extracted
-  - Rotation and scale-invariant features
-  - Keypoint visualization
-
-### ✓ Task 6: Performance Evaluation
-**Quantitative Metrics:**
-- **MSE (Mean Squared Error)**: Pixel-level differences
-- **PSNR (Peak Signal-to-Noise Ratio)**: Signal quality in dB
-- **SSIM (Structural Similarity Index)**: Perceptual similarity (0-1)
-
-**Key Results:**
-- MSE reduction: **96.56%** (1567.67 → 53.86)
-- PSNR improvement: **+14.64 dB** (16.18 → 30.82 dB)
-- SSIM improvement: **+0.664** (0.088 → 0.732)
-
-### ✓ Task 7: Final Visualization & Analysis
-- Complete 6-stage pipeline visualization
-- Original → Noisy → Restored → Enhanced → Segmented → Featured
-- Comprehensive system performance conclusions
-- Recommendations for future enhancements
+## Table of Contents
+- [Problem Statement](#problem-statement)
+- [Real-World Use Cases](#real-world-use-cases)
+- [Tech Stack and Version Requirements](#tech-stack-and-version-requirements)
+- [System Architecture and Workflow](#system-architecture-and-workflow)
+- [Detailed Task Breakdown](#detailed-task-breakdown)
+- [Quantitative Performance Evaluation](#quantitative-performance-evaluation)
+- [Directory Structure](#directory-structure)
+- [Quick Start and Installation](#quick-start-and-installation)
+- [Usage Instructions](#usage-instructions)
+- [Future Scope and Enhancements](#future-scope-and-enhancements)
+- [Author and Academic Details](#author-and-academic-details)
+- [License](#license)
 
 ---
 
-## 📦 Project Structure
+## Problem Statement
 
+In practical computer vision and digital image processing applications, optical sensors and image capture hardware frequently introduce degradation due to atmospheric distortion, inadequate illumination, sensor thermal noise, and electronic interference. Raw visual data cannot be reliably processed by downstream analytical or machine learning algorithms without prior systematic enhancement and restoration.
+
+### Key Challenges Addressed
+1. **Noise Degradation:** Mitigation of additive Gaussian thermal noise and impulsive Salt-and-Pepper transmission noise.
+2. **Illumination Variations:** Rectification of non-uniform lighting conditions that impair global edge detection and static thresholding algorithms.
+3. **Segmentation Accuracy:** Separation of foreground target objects from complex backgrounds using automatic and adaptive spatial thresholding combined with morphological operators.
+4. **Feature Representation:** Extraction of scale- and rotation-invariant keypoints (ORB), structural contours, and edge boundaries for object recognition.
+5. **Objective Quality Assessment:** Computation of mathematical and perceptual evaluation metrics (MSE, PSNR, SSIM) to quantitatively validate image restoration performance.
+
+This project delivers an automated, 7-stage processing pipeline to address these challenges with reproducible statistical verification.
+
+---
+
+## Real-World Use Cases
+
+| Domain / Industry | Application Scenario | Primary Technique / Module |
+| :--- | :--- | :--- |
+| **Medical Diagnostics** | Denoising MRI, CT, and X-ray images; segmenting tissue structures and lesion boundaries | CLAHE, Median Filter, Otsu Thresholding |
+| **Industrial Inspection** | Detecting micro-cracks, surface defects, and automated component verification on assembly lines | Morphological Gradient, Canny Edges, Contour Analysis |
+| **Autonomous Systems** | Road sign classification, lane detection, and feature point tracking under low visibility | ORB Descriptors, Adaptive Gaussian Thresholding |
+| **Document Processing & OCR** | Restoring faded historical texts, removing background paper artifacts, and binarizing low-contrast scans | Adaptive Thresholding, CLAHE |
+| **Microscopy & Research** | Quantitative cell counting, structural area measurement, and image degradation benchmarking | Bounding Boxes, SSIM / PSNR Metrics |
+
+---
+
+## Tech Stack and Version Requirements
+
+### Programming Language
+- **Python:** Version `3.7+` (Tested and recommended: `Python 3.8` through `3.11`)
+
+### Core Libraries and Dependencies
+
+| Library / Package | Minimum Required Version | Functional Purpose |
+| :--- | :--- | :--- |
+| **`opencv-python`** | `>= 4.5.0` | Digital image matrix transformations, color space conversions, spatial filtering, morphological operations, ORB feature extraction |
+| **`numpy`** | `>= 1.21.0` | Multi-dimensional array operations, matrix mathematics, synthetic noise generation routines |
+| **`matplotlib`** | `>= 3.4.0` | Rendering multi-panel pipeline comparison plots, intensity histograms, and saved visual outputs |
+| **`scipy`** | `>= 1.7.0` | Advanced scientific computing functions and spatial signal filtering kernels |
+| **`scikit-image`** | `>= 0.18.0` | Structural Similarity Index Measure (SSIM) and perceptual image quality algorithms |
+| **`scikit-learn`** | `>= 0.24.0` | Data analytics tools and evaluation metric calculations |
+| **`Pillow` (PIL)** | `>= 8.3.0` | Image file input/output validation and file format support |
+
+---
+
+## System Architecture and Workflow
+
+```text
+┌─────────────────┐     ┌───────────────────┐     ┌────────────────────┐
+│   Raw Image     │ ──> │  Task 2: Load &   │ ──> │ Task 3: Noise &    │
+│  Acquisition    │     │  Preprocess       │     │ Restoration/CLAHE  │
+└─────────────────┘     └───────────────────┘     └────────────────────┘
+                                                            │
+┌─────────────────┐     ┌───────────────────┐               ▼
+│ Task 7: Full    │ <── │ Task 6: Metric    │ <── ┌────────────────────┐
+│ Pipeline View   │     │ Evaluation        │     │ Task 4: Segment &  │
+└─────────────────┘     └───────────────────┘     │ Morphological Ops  │
+                                ▲                 └────────────────────┘
+                                │                           │
+                                └───────────────────────────┘
+                                  Task 5: Features & ORB
 ```
-intelligent_image_system/
-├── main.py                    # Main execution script
-├── task1_setup.py             # Task 1: Project setup & welcome
-├── task2_preprocessing.py      # Task 2: Image acquisition & preprocessing
-├── task3_enhancement.py        # Task 3: Enhancement & restoration
-├── task4_segmentation.py       # Task 4: Segmentation & morphology
-├── task5_features.py           # Task 5: Feature extraction
-├── task6_evaluation.py         # Task 6: Performance evaluation
-├── task7_visualization.py      # Task 7: Final visualization & analysis
-├── utils.py                    # Utility functions
-├── README.md                   # Project documentation
-├── .gitignore                  # Git ignore file
-└── outputs/                    # Generated visualizations
+
+---
+
+## Detailed Task Breakdown
+
+### Task 1: Project Setup and Architecture (`task1_setup.py`)
+- Standardized directory layout for raw inputs, modular functional code, and output artifacts.
+- Environment verification and logging module for execution tracking.
+
+### Task 2: Image Acquisition and Preprocessing (`task2_preprocessing.py`)
+- **Supported Formats:** JPEG, PNG, WebP, BMP, TIFF.
+- **Dimensional Standardization:** Resizing arbitrary inputs to a uniform $512 \times 512$ resolution matrix.
+- **Color Space Transformation:** Converting multi-channel RGB images to single-channel Grayscale matrices.
+
+### Task 3: Image Enhancement and Restoration (`task3_enhancement.py`)
+- **Synthetic Degradation Modeling:**
+  - **Gaussian Noise:** Simulation of thermal sensor noise ($\mathcal{N}(\mu=0, \sigma=25)$).
+  - **Salt-and-Pepper Noise:** Impulse transmission noise ($p = 0.05$).
+- **Spatial Denoising Filters:**
+  - **Mean Filter:** $5 \times 5$ linear spatial smoothing kernel.
+  - **Median Filter:** $5 \times 5$ non-linear rank-order filter for impulsive noise elimination.
+  - **Gaussian Filter:** Isotropic spatial smoothing kernel ($\sigma=1.5$).
+- **Contrast Optimization:**
+  - **Global Histogram Equalization:** Uniform redistribution of pixel intensity histograms.
+  - **CLAHE:** Contrast Limited Adaptive Histogram Equalization ($\text{tile\_size}=8 \times 8, \text{clip\_limit}=3.0$).
+
+### Task 4: Image Segmentation and Morphological Operations (`task4_segmentation.py`)
+- **Binarization Methods:**
+  - **Global Thresholding:** Static intensity cutoff ($T = 127$).
+  - **Otsu's Thresholding:** Automated bimodal threshold selection via inter-class variance maximization.
+  - **Adaptive Thresholding:** Localized Gaussian-weighted neighborhood thresholding.
+- **Morphological Processing:**
+  - **Dilation and Erosion:** Expansion and contraction of foreground structural elements.
+  - **Opening:** Sequential erosion and dilation for isolated background noise removal.
+  - **Closing:** Sequential dilation and erosion for hole filling and boundary bridging.
+  - **Morphological Gradient:** Difference between dilated and eroded images to isolate structural boundaries.
+
+### Task 5: Object Representation and Feature Extraction (`task5_features.py`)
+- **Edge Extraction:**
+  - **Sobel Operator:** First-order spatial gradient computation ($G_x, G_y$).
+  - **Canny Detector:** Multi-stage edge detection featuring non-maximum suppression and hysteresis thresholding.
+- **Contour Analysis:**
+  - Identification of structural contours (3,174 identified) and bounding box generation around discrete objects.
+- **Keypoint Detection:**
+  - **ORB (Oriented FAST and Rotated BRIEF):** Extraction of 498 scale- and rotation-invariant feature descriptors.
+
+### Task 6: Performance Evaluation (`task6_evaluation.py`)
+Quantitative verification comparing degraded and restored images across three objective standards:
+- **MSE (Mean Squared Error):** Arithmetic average of squared intensity differences.
+- **PSNR (Peak Signal-to-Noise Ratio):** Logarithmic signal-to-noise power ratio measured in decibels (dB).
+- **SSIM (Structural Similarity Index Measure):** Perceptual structural preservation metric ($0.0$ to $1.0$).
+
+### Task 7: Consolidated Pipeline Visualization (`task7_visualization.py`)
+- Generation of a multi-panel visual comparison illustrating the sequential transformation:
+  `Original Input` ➔ `Degraded Image` ➔ `Denoised Image` ➔ `Contrast Enhanced` ➔ `Segmented Mask` ➔ `Feature Extraction`.
+
+---
+
+## Quantitative Performance Evaluation
+
+Performance benchmarks recorded during empirical test execution:
+
+| Evaluation Metric | Degraded Image | Restored Image (Median Filter) | Net Performance Variation |
+| :--- | :---: | :---: | :---: |
+| **Mean Squared Error (MSE)** ↓ | `1567.67` | `53.86` | **96.56% Error Reduction** |
+| **Peak Signal-to-Noise Ratio (PSNR)** ↑ | `16.18 dB` | `30.82 dB` | **+14.64 dB Signal Improvement** |
+| **Structural Similarity (SSIM)** ↑ | `0.088` | `0.732` | **+0.644 Structural Retention** |
+
+---
+
+## Directory Structure
+
+```text
+Assignment-5-Intelligent-Image-Processing/
+├── main.py                    # Master execution entry point
+├── app.py                     # Optional web interface runner
+├── task1_setup.py             # System verification module
+├── task2_preprocessing.py     # Image acquisition and normalization
+├── task3_enhancement.py       # Denoising filters and CLAHE implementation
+├── task4_segmentation.py      # Thresholding and morphological operators
+├── task5_features.py          # Edge detection, contours, and ORB descriptors
+├── task6_evaluation.py        # Quantitative metric calculations (MSE, PSNR, SSIM)
+├── task7_visualization.py     # Consolidated multi-panel visualization generator
+├── utils.py                   # Shared utility functions
+├── requirements.txt           # Dependency manifest
+├── LICENSE                    # MIT License specification
+├── README.md                  # System documentation
+└── outputs/                   # Generated output artifacts
     ├── task2_preprocessing.png
     ├── task3_enhancement.png
     ├── task4_segmentation.png
@@ -111,293 +185,83 @@ intelligent_image_system/
 
 ---
 
-## 🔧 Installation & Setup
+## Quick Start and Installation
 
 ### Prerequisites
-- Python 3.7+
-- pip or conda package manager
-
-### Step 1: Clone the Repository
+Verify that Python `3.7` or a newer version is installed on the system:
 ```bash
-git clone https://github.com/yourusername/Assignment-5-Intelligent-Image-Processing.git
-cd intelligent_image_system
+python --version
 ```
 
-### Step 2: Create Virtual Environment (Optional but Recommended)
+### Step 1: Clone Repository
 ```bash
-# Windows
-python -m venv venv
-venv\Scripts\activate
-
-# Linux/Mac
-python3 -m venv venv
-source venv/bin/activate
+git clone https://github.com/itsashish1/Assignment-5-Intelligent-Image-Processing.git
+cd Assignment-5-Intelligent-Image-Processing
 ```
 
-### Step 3: Install Dependencies
+### Step 2: Configure Virtual Environment (Recommended)
+- **Linux / macOS:**
+  ```bash
+  python3 -m venv venv
+  source venv/bin/activate
+  ```
+- **Windows (Command Prompt / PowerShell):**
+  ```cmd
+  python -m venv venv
+  venv\Scripts\activate
+  ```
+
+### Step 3: Install Required Dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-**Required Packages:**
-```
-opencv-python>=4.5.0
-numpy>=1.21.0
-matplotlib>=3.4.0
-scipy>=1.7.0
-scikit-image>=0.18.0
-scikit-learn>=0.24.0
-Pillow>=8.3.0
-```
-
 ---
 
-## 🚀 Usage
+## Usage Instructions
 
-### Run the Complete Pipeline
+### Complete Pipeline Execution
+To run all 7 tasks sequentially and save visual output artifacts:
 ```bash
 python main.py
 ```
+Output visualizations will be stored directly inside the `outputs/` directory.
 
-This will execute all 7 tasks sequentially and generate visualizations in the `outputs/` folder.
-
-### Run Individual Tasks
+### Modular Programmatic Usage
+Individual modules can be imported directly into custom Python scripts:
 ```python
 import task2_preprocessing as task2
 import task3_enhancement as task3
 
-# Load and preprocess image
-original, grayscale = task2.process_image("path/to/image.jpg")
+# Load image and convert to standardized 512x512 grayscale matrix
+original_img, grayscale_img = task2.process_image("path/to/image.jpg")
 
-# Enhance and restore
-noisy, restored, enhanced = task3.enhance_and_restore(grayscale)
+# Apply noise simulation, median filter restoration, and CLAHE enhancement
+noisy_img, restored_img, enhanced_img = task3.enhance_and_restore(grayscale_img)
 ```
 
 ---
 
-## 📊 Output Results
+## Future Scope and Enhancements
 
-### Performance Metrics Summary
-
-| Comparison | MSE | PSNR (dB) | SSIM |
-|-----------|-----|-----------|------|
-| Original vs Noisy | 1567.67 | 16.18 | 0.0880 |
-| Original vs Restored | 53.86 | 30.82 | 0.7320 |
-| Original vs Enhanced | 1357.38 | 16.80 | 0.3119 |
-| Noisy vs Restored | 1546.16 | 16.24 | 0.0998 |
-
-### Generated Visualizations
-
-1. **task2_preprocessing.png** - Original vs Grayscale images
-2. **task3_enhancement.png** - Restoration pipeline (6 stages)
-3. **task4_segmentation.png** - Segmentation & morphology (6 results)
-4. **task5_features.png** - Edge detection & features (4 methods)
-5. **task7_pipeline_visualization.png** - Complete 6-stage pipeline
+- **Hardware Acceleration:** Integration of CUDA and `CuPy` bindings for real-time video stream processing ($>60 \text{ FPS}$).
+- **Deep Learning Architectures:** Incorporation of Convolutional Neural Networks (DnCNN) for deep denoising and UNet models for semantic segmentation.
+- **Microservice Infrastructure:** Containerization via Docker and deployment as a RESTful API service using FastAPI.
+- **Web Interface:** Expansion of `app.py` utilizing Streamlit or Gradio to enable interactive threshold tuning and filter parameter adjustment.
 
 ---
 
-## 🔬 Technical Details
+## Author and Academic Details
 
-### Libraries Used
-
-| Library | Purpose |
-|---------|---------|
-| **OpenCV (cv2)** | Image processing & computer vision algorithms |
-| **NumPy** | Numerical computations & matrix operations |
-| **SciPy** | Scientific computing & signal processing |
-| **Matplotlib** | Visualization & plotting |
-| **Scikit-Image** | Advanced image processing algorithms |
-| **Pillow** | Image file I/O operations |
-
-### Key Algorithms Implemented
-
-1. **Noise Addition**
-   - Gaussian noise: `N(μ=0, σ=25)`
-   - Salt-and-pepper: 5% pixel modification
-
-2. **Filtering**
-   - Mean filter: Simple averaging
-   - Median filter: Order statistics
-   - Gaussian filter: Gaussian kernel convolution
-
-3. **Enhancement**
-   - Histogram equalization: Global contrast
-   - CLAHE: Adaptive local contrast (tile_size=8, clip_limit=3.0)
-
-4. **Segmentation**
-   - Otsu's method: Automatic threshold selection
-   - Adaptive: Gaussian-weighted thresholding
-
-5. **Morphology**
-   - Dilation/Erosion: Max/min filtering with structuring element
-   - Opening/Closing: Composite operations
-
-6. **Feature Extraction**
-   - ORB: Fast rotation-invariant features
-   - Sobel: Gradient-based edge detection
-   - Canny: Multi-stage edge detection
-
-### Performance Results
-
-**Noise Reduction Effectiveness:**
-- Median filter removed **96.56%** of noise (MSE reduction)
-- PSNR improved by **14.64 dB** over noisy image
-- Structural similarity (SSIM) restored to **0.732** (good quality)
+- **Author:** Ashish Yadav
+- **Roll Number:** 2301010413
+- **Degree Program:** B.Tech Computer Science & Engineering (CSE)
+- **Institution:** K.R. Mangalam University
+- **Course Assignment:** Assignment 5 - Intelligent Image Processing System
+- **Repository URL:** [itsashish1/Assignment-5-Intelligent-Image-Processing](https://github.com/itsashish1/Assignment-5-Intelligent-Image-Processing)
 
 ---
 
-## 📈 System Performance
+## License
 
-### Execution Time
-- Image loading & preprocessing: ~0.5s
-- Noise simulation: ~0.2s
-- Restoration & enhancement: ~1.0s
-- Segmentation: ~0.5s
-- Feature extraction: ~0.3s
-- Evaluation: ~2.0s
-- Visualization: ~1.5s
-- **Total: ~6 seconds**
-
-### Memory Usage
-- Image storage: ~1-2 MB (512×512)
-- Processing buffers: ~5-10 MB
-- Visualizations: ~10-15 MB
-- **Peak: ~25 MB**
-
----
-
-## 🎓 Learning Outcomes
-
-This project demonstrates:
-- **Image I/O & Preprocessing**: Loading, resizing, color space conversion
-- **Noise Modeling**: Simulation of real-world degradation
-- **Signal Processing**: Filtering and enhancement techniques
-- **Computer Vision**: Segmentation and feature extraction
-- **Performance Analysis**: Quantitative metric computation
-- **Data Visualization**: Multi-stage pipeline display
-- **Software Engineering**: Modular code organization and documentation
-
----
-
-## 🚀 Future Enhancements
-
-1. **GPU Acceleration**
-   - CUDA implementation for large batches
-   - Real-time processing capability
-
-2. **Advanced Techniques**
-   - Deep learning-based denoising (autoencoders)
-   - CNN-based segmentation (U-Net, Mask R-CNN)
-   - Transfer learning for feature extraction
-
-3. **Additional Features**
-   - Video processing pipeline
-   - Multi-scale processing
-   - Parallel processing support
-
-4. **Production Deployment**
-   - REST API for image processing
-   - Web interface with Flask/Django
-   - Docker containerization
-
----
-
-## 📝 Example Output
-
-```
-╔════════════════════════════════════════════════════════════════╗
-║     INTELLIGENT IMAGE PROCESSING SYSTEM - WELCOME              ║
-╚════════════════════════════════════════════════════════════════╝
-
-Student Name:    Ashish Yadav
-Roll No:         2301010413
-Course:          BTech CSE
-Assignment:      Assignment-5
-Date:            April 09, 2026
-
-======================================================================
-TASK 1: PROJECT SETUP & SYSTEM OVERVIEW ✓
-======================================================================
-
-TASK 2: IMAGE ACQUISITION & PREPROCESSING
-...✓ Image loaded: 768×329 pixels
-...✓ Image resized to: 512×512 pixels
-...✓ Preprocessing visualization saved
-
-TASK 3: IMAGE ENHANCEMENT & RESTORATION
-...✓ Gaussian noise added (σ=25)
-...✓ Median filter applied
-...✓ CLAHE applied (enhancement)
-
-[continues for all tasks...]
-
-✓ ALL TASKS COMPLETED SUCCESSFULLY!
-```
-
----
-
-## 📚 References
-
-### Computer Vision Fundamentals
-- Sobel, I. (1968). "Gradient-based edge detection"
-- Canny, J. (1986). "A Computational Approach to Edge Detection"
-- Otsu, N. (1979). "A Threshold Selection Method"
-
-### Image Processing Techniques
-- Gonzalez & Woods. "Digital Image Processing" (3rd Ed.)
-- OpenCV Documentation: https://docs.opencv.org/
-
-### Metrics & Evaluation
-- Wang & Bovik. "Mean squared error: Love it or leave it?"
-- Wang et al. "Image Quality Assessment: From Error Visibility to Structural Similarity"
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
----
-
-## 👨‍💼 Author
-
-**Ashish Yadav**
-- Roll No: 2301010413
-- Course: BTech CS (Computer Science & Engineering)
-- Email: ashish.yadav@college.edu
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
----
-
-## ❓ FAQ
-
-**Q: Can I use my own images?**
-A: Yes! Modify the `image_path` variable in `main.py` to point to your image file.
-
-**Q: What image formats are supported?**
-A: JPEG, PNG, WebP, BMP, TIFF, and most common formats supported by OpenCV.
-
-**Q: How can I adjust parameters?**
-A: Each task module has adjustable parameters (kernel sizes, thresholds, etc.) that can be modified.
-
-**Q: Can this work on GPU?**
-A: Currently CPU-based. GPU acceleration can be added using CUDA/CuPy.
-
----
-
-## 📧 Contact & Support
-
-For issues, questions, or suggestions:
-- Create an issue on GitHub
-- Email: ashish.yadav@college.edu
-- Subject: Assignment-5 Support
-
----
-
-**Last Updated:** April 9, 2026
-**Version:** 1.0.0
+This project is released under the **MIT License**. Refer to the [LICENSE](LICENSE) file for complete details.
